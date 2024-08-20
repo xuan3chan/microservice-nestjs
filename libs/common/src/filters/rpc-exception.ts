@@ -22,7 +22,7 @@ export class GrpcExceptionFilter implements ExceptionFilter {
 
     let res: IExceptionResponse, statusCode: HttpStatus;
     const mapper: ErrorStatusMapper = new ErrorStatusMapper();
-
+    //x
     try {
       const code =
         'code' in exception ? exception?.code : exception?.error?.code;
