@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package USER_PACKAGE;
+// Define the User message
+message User {
+  string id = 1;
+  string firstname = 2;
+  string lastname = 3;
+  string email = 4;
+  string password = 5;
+}
+
+// Define the CreateUserDto message
+message CreateUserDto {
+  string firstname = 1;
+  string lastname = 2;
+  string email = 3;
+  string password = 4;
+}
+
+// Define the FindUserRequest message
+message FindUserRequest {
+  string id = 1;
+}
+
+// Define the GetAllResponse message
+message GetAllResponse {
+  string message = 1;
+}
+message Empty{
+}
+
+// Define the UsersService service
+service UsersService {
+  rpc CreateUser(CreateUserDto) returns (User);
+  rpc FindUser(FindUserRequest) returns (User);
+  rpc GetAll(Empty) returns (GetAllResponse);
+}

@@ -34,7 +34,21 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": ["apps/my-workspace-e2e/**/*"]
+      "exclude": [
+        "apps/my-workspace-e2e/**/*",
+        "apps/auth-e2e/**/*",
+        "apps/user-e2e/**/*",
+        "apps/api-gateway-e2e/**/*",
+        "apps/authentication-e2e/**/*",
+        "apps/users-e2e/**/*"
+      ]
     }
-  ]
+  ],
+  "targetDefaults": {
+    "@nx/js:tsc": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    }
+  }
 }

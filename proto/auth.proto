@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package AUTH_PACKAGE;
+import "users.proto";
+
+
+// Define the RegisterDto message
+message RegisterDto {
+  string firstname = 1;
+  string lastname = 2;
+  string email = 3;
+  string password = 4;
+}
+
+// Define the LoginDto message
+message LoginDto {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string message = 1;
+  string accessToken = 2;
+  
+}
+
+// Define the AuthenticationService service
+service AuthenticationService {
+  rpc Register(RegisterDto) returns (User);
+  rpc Login(LoginDto) returns (LoginResponse);
+}
