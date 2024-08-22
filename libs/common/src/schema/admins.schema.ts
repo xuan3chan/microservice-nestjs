@@ -15,7 +15,7 @@ export class Admins extends Document {
   @Prop({ type: mongoose.Schema.Types.String, required: true, unique: true })
   password: string;
 
-  @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'roles',required: true })
+  @Prop({ type: [mongoose.Schema.Types.ObjectId], required: true })
   roleId: mongoose.Types.ObjectId[];
 
   @Prop({ type: mongoose.Schema.Types.Boolean, default: false })
@@ -33,8 +33,21 @@ export const AdminsSchema = SchemaFactory.createForClass(Admins);
 AdminsSchema.pre('save', async function (next) {
   if (this.isNew) {
     const model = this.constructor as mongoose.Model<AdminsDocument>;
-    const count = await model.countDocuments();
-    this.adminId = `NV${(count + 1).toString().padStart(2, '0')}`;
+    let count = await model.countDocuments();
+    let newAdminId;
+    let isUnique = false;
+
+    while (!isUnique) {
+      newAdminId = `NV${(count + 1).toString().padStart(2, '0')}`;
+      const existingAdmin = await model.findOne({ adminId: newAdminId });
+      if (!existingAdmin) {
+        isUnique = true;
+      } else {
+        count++;
+      }
+    }
+
+    this.adminId = newAdminId as string;
   }
   next();
 });
