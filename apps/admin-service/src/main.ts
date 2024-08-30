@@ -34,17 +34,14 @@ SwaggerModule.setup('api', app, document);
   // });
 
   // Cấu hình RabbitMQ cho User Service
-  // app.connectMicroservice<MicroserviceOptions>({
-  //   transport: Transport.RMQ,
-  //   options: {
-  //     urls: ['amqp://admin:admin@localhost:5672'],
-  //     queue: process.env.RABBITMQ_QUEUE || 'user_queue',
-  //     queueOptions: {
-  //       durable: true,
-  //     },
-  //     prefetchCount: 10,
-  //   },
-  // });
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.RMQ,
+    options: {
+      urls: ['amqp://admin:admin@localhost:5672'],
+      queue:'admin_queue',
+      prefetchCount: 10,
+    },  
+  });
 
   // Khởi động tất cả các microservice
   await app.startAllMicroservices();

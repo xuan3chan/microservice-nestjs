@@ -1,6 +1,6 @@
 import { Body, Controller, Post, Put } from '@nestjs/common';
 import { AdminService } from './admin.service';
-import { GrpcMethod } from '@nestjs/microservices';
+import { GrpcMethod, MessagePattern, Payload } from '@nestjs/microservices';
 import { CreateAdminDto } from '@my-workspace/common/dtos';
 
 @Controller('admin')
@@ -18,5 +18,12 @@ export class AdminController {
   async updateAdmin(
     @Body() data: any) {
     return this.adminService.updateAdminService(data);
+  }
+  
+  @MessagePattern({ cmd: 'findAdminByAccount' })
+  async findAdminByAccount(
+    @Payload() data: { account: string }) {
+    console.log(data);
+    return this.adminService.findAdminByAccountService(data.account);
   }
 }

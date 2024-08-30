@@ -23,8 +23,10 @@ export class UsersController {
   getAll(): Promise<any> {
     return this.usersService.getAll();
   }
-  @MessagePattern({ cmd: 'findUserByEmail' })
-  async findUserByEmail(@Payload() data: { email: string }) {
-    return this.usersService.findByEmail(data.email);
+  @MessagePattern({ cmd: 'findByAccount' })
+  @GrpcMethod('UsersService', 'FindByAccount')
+  async findByAccount(@Payload() data: { account: string }) {
+    console.log(data);
+    return this.usersService.findByAccount(data.account);
   }
 }

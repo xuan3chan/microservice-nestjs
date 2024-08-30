@@ -12,7 +12,7 @@ import { join } from 'path';
     ClientsModule.register([
       // {
       //   name: 'ROLE_PACKAGE',
-      //   transport: Transport.GRPC,
+      //   transport: Transport.GRPCd,
       //   options: {
       //     url: process.env.GRPC_CONNECTUSER, // Đặt cổng cho gRPC service
       //     package: 'ROLE_PACKAGE',

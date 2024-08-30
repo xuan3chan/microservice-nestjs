@@ -31,16 +31,15 @@ export class registerDto {
   lastname: string;
 
   @ApiProperty({
-    description: 'Enter email',
+    description: 'Enter account',
     type: String,
     required: true,
-    default: 'dd@gmail.com',
+    default: 'minhxuan',
   })
   @IsString()
   @IsNotEmpty()
   @MaxLength(100)
-  @IsEmail({}, { message: 'please enter correct email' })
-  email: string;
+  account: string;
 
   @ApiProperty({
     description: 'Enter password',
@@ -56,16 +55,14 @@ export class registerDto {
 }
 export class loginDto {
   @ApiProperty({
-    description: 'Enter email',
-    example: 'dda@gmail.com',
-    type: String,
-    required: true,
+    description: 'Enter account',
+    example: 'minhxuan'
+    
   })
   @IsString()
   @IsNotEmpty()
   @MaxLength(100)
-  @IsEmail({}, { message: 'please enter correct email' })
-  email: string;
+  account: string;
 
   @ApiProperty({
     description: 'Enter password',

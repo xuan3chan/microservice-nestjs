@@ -3,7 +3,7 @@ export interface User {
   id: string;
   firstname: string;
   lastname: string;
-  email: string;
+  account: string;
   password: string;
 }
 
@@ -11,7 +11,7 @@ export interface User {
 export interface CreateUserDto {
   firstname: string;
   lastname: string;
-  email: string;
+  account: string;
   password: string;
 }
 
@@ -19,6 +19,7 @@ export interface CreateUserDto {
 export interface FindUserRequest {
   id: string;
 }
+
 
 // Define the GetAllResponse interface
 export interface GetAllResponse {
@@ -30,4 +31,5 @@ export interface UsersInterface {
   CreateUser(request: CreateUserDto): Promise<User>;
   FindUser(request: FindUserRequest): Promise<User>;
   GetAll(request: {}): Promise<GetAllResponse>;
+  FindByAccount(account: string ): Promise<User>;
 }

@@ -8,13 +8,13 @@ import "users.proto";
 message RegisterDto {
   string firstname = 1;
   string lastname = 2;
-  string email = 3;
+  string account = 3;
   string password = 4;
 }
 
 // Define the LoginDto message
 message LoginDto {
-  string email = 1;
+  string account = 1;
   string password = 2;
 }
 

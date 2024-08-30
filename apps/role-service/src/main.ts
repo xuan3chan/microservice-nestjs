@@ -24,10 +24,7 @@ async function bootstrap() {
     transport: Transport.RMQ,
     options: {
       urls: ['amqp://admin:admin@localhost:5672'],
-      queue: process.env.RABBITMQ_QUEUE || 'role_queue',
-      queueOptions: {
-        durable: true,
-      },
+      queue:'role_queue',
       prefetchCount: 10,
     },
   });

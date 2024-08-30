@@ -13,7 +13,7 @@ export class User extends Document {
   lastname: string;
 
   @Prop({ type: mongoose.Schema.Types.String, required: true, unique: true })
-  email: string;
+  account: string;
 
   @Prop({ type: mongoose.Schema.Types.String, required: true })
   password: string;

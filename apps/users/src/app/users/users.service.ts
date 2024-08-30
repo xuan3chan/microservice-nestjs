@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { CreateUserDto } from '@my-workspace/common/dtos';
 import {  RpcException } from '@nestjs/microservices';
 import { User } from '@my-workspace/common/schema';
+import * as bcrypt from 'bcrypt';
 
 
 @Injectable()
@@ -13,6 +14,7 @@ export class UsersService {
   async create(createUserDto: CreateUserDto): Promise<User> {
     try {
       const createdUser = new this.userModel(createUserDto);
+      createdUser.password = await bcrypt.hash(createdUser.password, 10);
       return await createdUser.save();
     } catch (error) {
       if (error.code === 11000 && error.keyPattern?.email) {
@@ -26,8 +28,9 @@ export class UsersService {
     return this.userModel.findById(id).exec();
   }
 
-  async findByEmail(email: string): Promise<User> {
-    return this.userModel.findOne({ email }).exec();
+
+  async findByAccount(account: string): Promise<User> {
+    return this.userModel.findOne({ account }).lean().exec();
   }
 
   async getAll(): Promise<any> {

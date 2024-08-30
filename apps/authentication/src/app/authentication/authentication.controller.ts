@@ -4,6 +4,7 @@ import { loginDto, registerDto } from '@my-workspace/common/dtos';
 import { GrpcMethod } from '@nestjs/microservices';
 import { GrpcToHttpInterceptor } from 'nestjs-grpc-exceptions';
 
+@UseInterceptors(GrpcToHttpInterceptor)
 @Controller()
 export class AuthenticationController {
   constructor(private readonly authService: AuthenticationService) {}
@@ -13,7 +14,6 @@ export class AuthenticationController {
     return result;
   }
 
-  @UseInterceptors(GrpcToHttpInterceptor)
   @GrpcMethod('AuthenticationService', 'Login')
   async login(data: loginDto) {
     const result = await this.authService.login(data);

@@ -4,13 +4,13 @@ import { Observable } from "rxjs";
 export interface RegisterDto {
     firstname: string;
     lastname: string;
-    email: string;
+    account: string;
     password: string;
   }
   
   // Define the LoginDto interface
   export interface LoginDto {
-    email: string;
+    account: string;
     password: string;
   }
 

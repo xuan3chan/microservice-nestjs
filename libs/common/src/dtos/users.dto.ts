@@ -16,8 +16,7 @@ export class CreateUserDto {
     @IsString()
     @IsNotEmpty()
     @MaxLength(100)
-    @IsEmail({},{message:'please enter correct email'})
-    email: string;
+    account: string;
 
     @IsString()
     @IsNotEmpty()

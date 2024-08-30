@@ -1,3 +1,4 @@
+// authentication.module.ts
 import { Module } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
 import { AuthenticationController } from './authentication.controller';
@@ -19,26 +20,32 @@ import { GrpcServerExceptionFilter } from 'nestjs-grpc-exceptions';
         name: 'USER_PACKAGE',
         transport: Transport.GRPC,
         options: {
-          url: process.env.GRPC_CONNECTUSER, // Đặt cổng cho gRPC service
+          url: process.env.GRPC_CONNECTUSER,
           package: 'USER_PACKAGE',
           protoPath: join(process.cwd(), 'proto/users.proto'),
+        },
+      },
+      {
+        name: 'ADMIN_RABBIT',
+        transport: Transport.RMQ,
+        options: {
+          urls: ['amqp://admin:admin@localhost:5672'],
+          queue: 'admin_queue',
         },
       },
       {
         name: 'USER_RABBIT',
         transport: Transport.RMQ,
         options: {
-          urls: [ 'amqp://admin:admin@localhost:5672'],
-          queue: process.env.RABBITMQ_QUEUE || 'user_queue',
-          queueOptions: {
-            durable: true,
-          },
+          urls: ['amqp://admin:admin@localhost:5672'],
+          queue: 'user_queue',
         },
       },
     ]),
   ],
   controllers: [AuthenticationController],
-  providers: [AuthenticationService,
+  providers: [
+    AuthenticationService,
     {
       provide: APP_FILTER,
       useClass: GrpcServerExceptionFilter,

@@ -13,7 +13,7 @@ import { firstValueFrom } from 'rxjs';
 export class AdminService {
     constructor(
         @InjectModel(Admins.name) private adminModel: Model<Admins>,
-        @Inject('ROLE_RABBIT') private readonly roleRabbit: ClientProxy,
+        @Inject('ROLE_RABBIT') private readonly _RoleService: ClientProxy,
     ) {}
 
     async createAdminService(dto: CreateAdminDto): Promise<any> {
@@ -27,7 +27,7 @@ export class AdminService {
             throw new GrpcAlreadyExistsException('UserName of admin already exists');
         }
         
-        const roleExits = await firstValueFrom(this.roleRabbit.send(
+        const roleExits = await firstValueFrom(this._RoleService.send(
             { cmd: 'findRoleById' },
             { ids: dto.roleId },
         ));
@@ -65,7 +65,7 @@ export class AdminService {
     
         // Kiểm tra xem roleId có hợp lệ không (nếu có thay đổi)
         if (dto.roleId && dto.roleId.length > 0) {
-            const roleExits = await firstValueFrom(this.roleRabbit.send(
+            const roleExits = await firstValueFrom(this._RoleService.send(
                 { cmd: 'findRoleById' },
                 { ids: dto.roleId },
             ));
@@ -77,6 +77,10 @@ export class AdminService {
         const updatedAdmin = await this.adminModel.findByIdAndUpdate(dto.id, dto, { new: true }).lean();
         
         return updatedAdmin;
+    }
+
+    findAdminByAccountService(account:string): Promise<Admins[]> {
+        return this.adminModel.find({userName:account}).lean();
     }
     
 }

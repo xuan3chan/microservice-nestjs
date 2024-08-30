@@ -6,7 +6,7 @@ message User {
   string id = 1;
   string firstname = 2;
   string lastname = 3;
-  string email = 4;
+  string account = 4;
   string password = 5;
 }
 
@@ -14,7 +14,7 @@ message User {
 message CreateUserDto {
   string firstname = 1;
   string lastname = 2;
-  string email = 3;
+  string account = 3;
   string password = 4;
 }
 
@@ -34,5 +34,6 @@ message Empty{
 service UsersService {
   rpc CreateUser(CreateUserDto) returns (User);
   rpc FindUser(FindUserRequest) returns (User);
+  rpc FindByAccount(FindUserRequest) returns (User);
   rpc GetAll(Empty) returns (GetAllResponse);
 }
